@@ -14,22 +14,24 @@ def romanToInt(s):
     if len(s) == 1:
         my_addition += my_dict[s]
         return my_addition
-
     else:
         list_of_romans = [x for x in s]
-        for element in list_of_romans:
+
+        enum = enumerate(list_of_romans)
+        romans_dic = dict((i,j) for i,j in enum)
+
+        for i,element in enumerate(list_of_romans):
             my_addition += my_dict[element]
-            if element == 'X' or element == 'V':
-                print(type(list_of_romans[element]))
-                counter = element - 1
-                if list_of_romans[counter] == 'I':
-                    print('here2')
-                    my_addition = my_addition -2
-
-
-            #my_addition += my_dict[element]
-
+            if i >= 1:
+                if element == 'X' or element == 'V':
+                    if romans_dic[i - 1] == 'I':
+                        my_addition = my_addition - 2
+                elif element == 'L' or element == 'C':
+                    if romans_dic[i - 1] == 'X':
+                        my_addition = my_addition - 20
+                elif element == 'D' or element == 'M':
+                    if romans_dic[i - 1] == 'C':
+                        my_addition = my_addition - 200
     return my_addition
             
-
-print(romanToInt('IV'))
+print(romanToInt('MCMXCIV'))
